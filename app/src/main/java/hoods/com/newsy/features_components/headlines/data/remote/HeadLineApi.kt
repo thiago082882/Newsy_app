@@ -16,7 +16,7 @@ interface HeadLineApi {
         @Query("category") category : String,
         @Query("country") country: String,
         @Query("language")language: String,
-        @Query("page")page: String,
+        @Query("page")page: Int,
         @Query("pageSize")pageSize: String
 
     ): NewsRemoteDto
