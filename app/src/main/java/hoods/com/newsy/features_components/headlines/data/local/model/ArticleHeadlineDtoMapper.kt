@@ -1,8 +1,10 @@
 package hoods.com.newsy.features_components.headlines.data.local.model
 
+import androidx.room.Entity
 import hoods.com.newsy.features_components.core.data.remote.models.Article
 import hoods.com.newsy.features_components.core.domain.mapper.Mapper
 import hoods.com.newsy.features_components.headlines.data.local.mapper.HeadlineMapper
+
 
 class ArticleHeadlineDtoMapper(
     private val page: Int = 0,
