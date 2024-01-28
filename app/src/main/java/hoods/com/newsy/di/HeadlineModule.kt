@@ -11,6 +11,8 @@ import hoods.com.newsy.features_components.core.domain.mapper.Mapper
 import hoods.com.newsy.features_components.core.domain.models.NewsyArticle
 import hoods.com.newsy.features_components.headlines.data.local.dao.HeadlineDao
 import hoods.com.newsy.features_components.headlines.data.local.dao.HeadlineRemoteKeyDao
+import hoods.com.newsy.features_components.headlines.data.local.mapper.HeadlineMapper
+import hoods.com.newsy.features_components.headlines.data.local.model.ArticleHeadlineDtoMapper
 import hoods.com.newsy.features_components.headlines.data.local.model.HeadlineDto
 import hoods.com.newsy.features_components.headlines.data.local.model.HeadlineRemoteKey
 import hoods.com.newsy.features_components.headlines.data.remote.HeadLineApi
@@ -86,4 +88,15 @@ object HeadlineModule {
             fetchHeadlineArticleUseCase = FetchHeadlineArticleUseCase(repository),
             updateHeadlineFavouriteUseCase = UpdateHeadlineFavouriteUseCase(repository)
         )
+
+    @Singleton
+    @Provides
+    fun provideArticleToHeadlineMapper():Mapper<Article,HeadlineDto>
+    = ArticleHeadlineDtoMapper()
+
+
+    @Singleton
+    @Provides
+    fun provideHeadlineMapper():Mapper<HeadlineDto,NewsyArticle>
+            = HeadlineMapper()
 }
