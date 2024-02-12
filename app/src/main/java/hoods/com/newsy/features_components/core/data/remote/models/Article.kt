@@ -1,6 +1,8 @@
 package hoods.com.newsy.features_components.core.data.remote.models
 
 
+import hoods.com.newsy.features_components.discover.data.local.models.DiscoveryArticleDto
+import hoods.com.newsy.features_components.headlines.data.local.model.HeadlineDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -21,5 +23,41 @@ data class Article(
     @SerialName("url")
     val url: String = "",
     @SerialName("urlToImage")
-    val urlToImage: String? = null
+    val urlToImage: String? = null,
+
 )
+
+fun Article.toDiscoveryArticle(page:Int,category:String):DiscoveryArticleDto{
+    return  DiscoveryArticleDto(
+        author = author,
+        content = content ?: "empty value",
+        description = description ?: "empty value",
+        publishedAt = publishedAt,
+        title = title,
+        source = source.name,
+        category = category,
+        url = url,
+        urlToImage = urlToImage,
+        page = page
+
+    )
+}
+
+fun Article.toHeadlineArticle(page:Int,category:String):HeadlineDto{
+    return HeadlineDto(
+        author = formatEmptyValue(author,"author"),
+        content =  formatEmptyValue(content,"content"),
+        description =  formatEmptyValue(description,"description"),
+        publishedAt =  publishedAt,
+        source = source.name,
+        title = title,
+        url = url,
+        urlToImage = urlToImage,
+        page = page,
+        category = category
+    )
+}
+
+private  fun formatEmptyValue(value:String?,default:String = ""):String{
+    return value ?: "Unknown $default"
+}

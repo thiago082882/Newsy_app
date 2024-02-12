@@ -22,7 +22,6 @@ class HeadlineRepositoryImpl(
     private  val headLineApi: HeadLineApi,
     private  val database : NewsyArticleDatabase,
     private  val mapper: Mapper<HeadlineDto,NewsyArticle>,
-    private  val articleHeadlineMapper: Mapper<Article,HeadlineDto>
 ) : HeadlineRepository {
 
     @OptIn(ExperimentalPagingApi::class)
@@ -42,8 +41,7 @@ class HeadlineRepositoryImpl(
                 database = database,
                 category = category,
                 country = country,
-                language = language,
-                articleHeadlineDtoMapper = articleHeadlineMapper
+                language = language
 
             )
         ){
