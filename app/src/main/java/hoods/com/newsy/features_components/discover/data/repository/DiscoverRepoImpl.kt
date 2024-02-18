@@ -70,4 +70,8 @@ class DiscoverRepoImpl(
 
         )
     }
+
+    override suspend fun getAllAvailableCategories(): List<String> {
+      return database.discoverRemoteKeyDao().getAllAvailableCategories()
+    }
 }

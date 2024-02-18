@@ -17,4 +17,5 @@ interface DiscoveryRepository {
     suspend fun updateCategory(category: String)
     suspend fun  getDiscoverCurrentCategory():String
     suspend fun  updateFavouriteDiscoverCategory(article: NewsyArticle)
+    suspend fun getAllAvailableCategories():List<String>
 }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocalFireDepartment
+import androidx.compose.material.icons.filled.Newspaper
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -24,85 +25,110 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import hoods.com.newsy.feature_presentations.core.components.HeaderTitle
 import hoods.com.newsy.feature_presentations.core.components.HeadlineItem
+import hoods.com.newsy.feature_presentations.core.components.NewsyArticleItem
+
 import hoods.com.newsy.feature_presentations.core.components.PaginationLoadingItem
 import hoods.com.newsy.feature_presentations.core.components.itemSpacing
+import hoods.com.newsy.feature_presentations.home.components.DiscoverChip
 import hoods.com.newsy.feature_presentations.home.components.HomeTopAppBar
+import hoods.com.newsy.feature_presentations.home.viewmodel.HomeState
 import hoods.com.newsy.feature_presentations.home.viewmodel.HomeUiEvents
 import hoods.com.newsy.feature_presentations.home.viewmodel.HomeViewModel
+import hoods.com.newsy.features_components.core.domain.models.DomainContract
 import hoods.com.newsy.features_components.core.domain.models.NewsyArticle
 import hoods.com.newsy.utils.ArticleCategory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onViewMoreClick: () -> Unit,
     onHeadlineItemClick: (id: Int) -> Unit,
+    onDiscoverItemClick: (id: Int) -> Unit,
+    onSearchClick: () -> Unit,
     openDrawer: () -> Unit,
-    onSearchClick: () -> Unit
-
 ) {
-
     val homeState = viewModel.homeState
     val headlineArticles = homeState.headlineArticles.collectAsLazyPagingItems()
+    val discoverArticles = homeState.discoverArticles.collectAsLazyPagingItems()
     val categories = ArticleCategory.values()
-    val snackBarHostState = remember { SnackbarHostState() }
+    val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     Scaffold(
         snackbarHost = {
-            SnackbarHost(snackBarHostState) {
-
-            }
+            SnackbarHost(snackbarHostState)
         },
         topBar = {
-            HomeTopAppBar(openDrawer = openDrawer, onSearch = onSearchClick)
+            HomeTopAppBar(
+                openDrawer = openDrawer,
+                onSearch = onSearchClick
+            )
         }
-    ) { innerPading ->
-        LazyColumn(contentPadding = innerPading) {
+    ) { innerPadding ->
+        LazyColumn(
+            contentPadding = innerPadding
+        ) {
+            headlineItems(
+                headlineArticles = headlineArticles,
+                scope = scope,
+                snackbarHostState = snackbarHostState,
+                onViewMoreClick = onViewMoreClick,
+                onHeadlineItemClick = onHeadlineItemClick,
+                onFavouriteHeadlineChange = {
+                    viewModel.onHomeUIEvents(
+                        HomeUiEvents.OnHeadlineFavouriteChange(
+                            article = it
+                        )
+                    )
+                }
+            )
 
-   headlineItems(
- headlineArticles = headlineArticles,
-       scope = scope,
-       snackBarHostState = snackBarHostState,
-       onViewMoreClick = onViewMoreClick,
-       onHeadlineItemClick = onHeadlineItemClick,
-       onFavouriteHeadlineChange = {
-           viewModel.onHomeUIEvents(
-               HomeUiEvents.OnHeadlineFavouriteChange(
-                   article =  it
-               )
-           )
-       }
-   )
-
+            DiscoverItems(
+                homeState = homeState,
+                categories = categories.toList(),
+                discoverArticles = discoverArticles,
+                scope = scope,
+                snackbarHostState = snackbarHostState,
+                onCategoryChange = { category ->
+                    viewModel.onHomeUIEvents(
+                        HomeUiEvents.CategoryChange(category)
+                    )
+                },
+                onItemClick = onDiscoverItemClick,
+                onFavouriteChange = { article ->
+                    viewModel.onHomeUIEvents(
+                        HomeUiEvents.OnDiscoverFavouriteChange(article as NewsyArticle)
+                    )
+                }
+            )
         }
-
     }
-
 }
 
 private fun LazyListScope.headlineItems(
     headlineArticles: LazyPagingItems<NewsyArticle>,
     scope: CoroutineScope,
-    snackBarHostState: SnackbarHostState,
+    snackbarHostState: SnackbarHostState,
     onViewMoreClick: () -> Unit,
     onHeadlineItemClick: (id: Int) -> Unit,
-    onFavouriteHeadlineChange: (NewsyArticle) -> Unit
-
+    onFavouriteHeadlineChange: (NewsyArticle) -> Unit,
 ) {
     item {
-        HeaderTitle(title = "Hot News", icon = Icons.Default.LocalFireDepartment)
+        HeaderTitle(
+            title = "Hot News",
+            icon = Icons.Default.LocalFireDepartment
+        )
         Spacer(modifier = Modifier.size(itemSpacing))
     }
+
     item {
         PaginationLoadingItem(
             pagingState = headlineArticles.loadState.mediator?.refresh,
             onError = { e ->
                 scope.launch {
-                    snackBarHostState.showSnackbar(
+                    snackbarHostState.showSnackbar(
                         message = e.message ?: "unknown error"
                     )
                 }
@@ -112,22 +138,100 @@ private fun LazyListScope.headlineItems(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth(align = Alignment.CenterHorizontally)
-
                 )
-
             }
         )
     }
-    item {
 
+    item {
         val articleList = headlineArticles.itemSnapshotList.items
         HeadlineItem(
             articles = articleList,
             articleCount = if (articleList.isEmpty()) 0 else articleList.lastIndex,
-            onCardClick = { onHeadlineItemClick(it.id) },
-            onViewMoreClick = { onViewMoreClick },
+            onCardClick = {
+                onHeadlineItemClick(it.id)
+            },
+            onViewMoreClick = onViewMoreClick,
             onFavouriteChange = onFavouriteHeadlineChange
         )
-
     }
+}
+
+
+
+private fun LazyListScope.DiscoverItems(
+    homeState: HomeState,
+    categories: List<ArticleCategory>,
+    discoverArticles: LazyPagingItems<NewsyArticle>,
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState,
+    onItemClick: (id: Int) -> Unit,
+    onCategoryChange: (ArticleCategory) -> Unit,
+    onFavouriteChange: (article: DomainContract) -> Unit,
+) {
+    item {
+        HeaderTitle(
+            title = "Discover News",
+            icon = Icons.Default.Newspaper
+        )
+        Spacer(modifier = Modifier.size(itemSpacing))
+        DiscoverChip(
+            selectedCategory = homeState.selectedDiscoverCategory,
+            categories = categories,
+            onCategoryChange = onCategoryChange
+        )
+    }
+
+    item {
+        PaginationLoadingItem(
+            pagingState = discoverArticles.loadState.mediator?.refresh,
+            onError = { e ->
+                scope.launch {
+                    snackbarHostState.showSnackbar(e.message ?: " unknown error")
+                }
+            },
+            onLoading = {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(
+                            align = Alignment.CenterHorizontally
+                        )
+                )
+            }
+        )
+    }
+
+    items(count = discoverArticles.itemCount) { index ->
+        discoverArticles[index]?.let {
+            NewsyArticleItem(
+                article = it,
+                onClick = { article ->
+                    onItemClick(article.id)
+                },
+                onFavouriteChange = onFavouriteChange
+            )
+        }
+    }
+
+    item {
+        PaginationLoadingItem(
+            pagingState = discoverArticles.loadState.mediator?.append,
+            onError = { e ->
+                scope.launch {
+                    snackbarHostState.showSnackbar(e.message ?: " unknown error")
+                }
+            },
+            onLoading = {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(
+                            align = Alignment.CenterHorizontally
+                        )
+                )
+            }
+        )
+    }
+
 }

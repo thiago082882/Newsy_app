@@ -27,11 +27,15 @@ class DiscoverMediator(
     override suspend fun initialize(): InitializeAction {
         val cacheTimeOut = TimeUnit.MILLISECONDS.convert(20, TimeUnit.MINUTES)
         val isCacheTimeOut = System.currentTimeMillis() -
-                (database.discoverRemoteKeyDao().getCreationTime() ?: 0) < cacheTimeOut
-        return if (isCacheTimeOut) {
-            InitializeAction.SKIP_INITIAL_REFRESH
-        } else {
+                (database.discoverRemoteKeyDao().getCreationTime() ?: 0) > cacheTimeOut
+
+        val allCategories =  database.discoverRemoteKeyDao().getAllAvailableCategories()
+        val isNotCategoryAvailable = allCategories.find { it == category } == null
+        return if (isNotCategoryAvailable   || isCacheTimeOut  ) {
             InitializeAction.LAUNCH_INITIAL_REFRESH
+        } else {
+
+            InitializeAction.SKIP_INITIAL_REFRESH
         }
     }
 
@@ -104,7 +108,7 @@ class DiscoverMediator(
         } catch (e: IOException) {
             MediatorResult.Error(e)
 
-        }catch (e: HttpException) {
+        } catch (e: HttpException) {
             MediatorResult.Error(e)
 
         }

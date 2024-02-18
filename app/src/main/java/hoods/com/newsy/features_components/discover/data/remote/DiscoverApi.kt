@@ -10,14 +10,18 @@ interface DiscoverApi {
         private const val DISCOVER_END_POINT = "/v2/top-headlines"
     }
 
-
     @GET(DISCOVER_END_POINT)
     suspend fun getDiscoverHeadlines(
-        @Query("api_key") key: String = K.API_KEY,
+        @Query("apiKey") key: String = K.API_KEY,
         @Query("category") category: String,
         @Query("country") country: String,
         @Query("language") language: String,
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int,
-    ):NewsRemoteDto
+    ): NewsRemoteDto
+
+
+
+
+
 }

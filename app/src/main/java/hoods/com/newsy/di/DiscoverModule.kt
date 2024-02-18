@@ -15,6 +15,11 @@ import hoods.com.newsy.features_components.discover.data.mapper.DiscoverMapper
 import hoods.com.newsy.features_components.discover.data.remote.DiscoverApi
 import hoods.com.newsy.features_components.discover.data.repository.DiscoverRepoImpl
 import hoods.com.newsy.features_components.discover.domain.repository.DiscoveryRepository
+import hoods.com.newsy.features_components.discover.domain.use_cases.DiscoverUseCases
+import hoods.com.newsy.features_components.discover.domain.use_cases.FetchDiscoverArticleUseCase
+import hoods.com.newsy.features_components.discover.domain.use_cases.GetDiscoverCurrentCategoryUseCase
+import hoods.com.newsy.features_components.discover.domain.use_cases.UpdateCurrentCategoryUseCase
+import hoods.com.newsy.features_components.discover.domain.use_cases.UpdateFavouriteDiscoverArticleUseCase
 import hoods.com.newsy.utils.K
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -73,5 +78,16 @@ object DiscoverModule {
     @Provides
     fun provideDiscoverMapper(): Mapper<DiscoveryArticleDto,NewsyArticle>
     =DiscoverMapper()
+
+    @Singleton
+    @Provides
+    fun provideDiscoverUseCases(repository: DiscoveryRepository):DiscoverUseCases{
+        return  DiscoverUseCases(
+            fetchDiscoverArticleUseCase = FetchDiscoverArticleUseCase(repository),
+            getDiscoverArticleUseCase = GetDiscoverCurrentCategoryUseCase(repository),
+            updateCurrentCategoryUseCase = UpdateCurrentCategoryUseCase(repository),
+            updateFavouriteDiscoverArticleUseCase = UpdateFavouriteDiscoverArticleUseCase(repository)
+        )
+    }
 
 }
