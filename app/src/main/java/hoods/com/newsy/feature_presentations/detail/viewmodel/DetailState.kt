@@ -1,4 +1,4 @@
-package hoods.com.newsy.features_presentations.detail.viewmodel
+package hoods.com.newsy.feature_presentations.detail.viewmodel
 
 import hoods.com.newsy.features_components.detail.domain.models.DetailArticle
 import hoods.com.newsy.utils.Resource

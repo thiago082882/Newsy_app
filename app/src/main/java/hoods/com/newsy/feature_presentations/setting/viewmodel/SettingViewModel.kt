@@ -1,4 +1,4 @@
-package hoods.com.newsy.features_presentations.setting.viewmodel
+package hoods.com.newsy.feature_presentations.setting.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

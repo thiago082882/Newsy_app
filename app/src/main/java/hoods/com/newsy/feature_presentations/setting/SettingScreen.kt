@@ -1,4 +1,4 @@
-package hoods.com.newsy.features_presentations.setting
+package hoods.com.newsy.feature_presentations.setting
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -36,9 +36,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import hoods.com.newsy.R
 import hoods.com.newsy.features_components.core.domain.models.Country
 import hoods.com.newsy.features_components.core.domain.models.Language
-import hoods.com.newsy.features_presentations.setting.viewmodel.SettingState
-import hoods.com.newsy.features_presentations.setting.viewmodel.SettingViewModel
-import hoods.com.newsy.features_presentations.setting.viewmodel.SettingsEvents
+import hoods.com.newsy.feature_presentations.setting.viewmodel.SettingState
+import hoods.com.newsy.feature_presentations.setting.viewmodel.SettingViewModel
+import hoods.com.newsy.feature_presentations.setting.viewmodel.SettingsEvents
 import hoods.com.newsy.utils.Utils
 
 @Composable

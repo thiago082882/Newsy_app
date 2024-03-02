@@ -1,4 +1,4 @@
-package hoods.com.newsy.features_presentations.detail.components
+package hoods.com.newsy.feature_presentations.detail.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.CenterAlignedTopAppBar

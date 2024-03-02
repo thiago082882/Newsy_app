@@ -15,13 +15,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import hoods.com.newsy.feature_presentations.core.components.HeaderTitle
+import hoods.com.newsy.feature_presentations.core.components.NewsyArticleItem
+import hoods.com.newsy.feature_presentations.core.components.PaginationLoadingItem
+import hoods.com.newsy.feature_presentations.core.components.itemSpacing
 import hoods.com.newsy.features_components.core.domain.models.NewsyArticle
-import hoods.com.newsy.features_presentations.core.components.HeaderTitle
-import hoods.com.newsy.features_presentations.core.components.NewsyArticleItem
-import hoods.com.newsy.features_presentations.core.components.PaginationLoadingItem
-import hoods.com.newsy.features_presentations.core.components.itemSpacing
-import hoods.com.newsy.features_presentations.headline.viewmodel.HeadlineViewModel
-import kotlinx.coroutines.CoroutineScope
+import hoods.com.newsy.feature_presentations.headline.viewmodel.HeadlineViewModel
 
 @Composable
 fun HeadlineScreen(
@@ -78,7 +77,8 @@ private fun HeadlineScreen(
                 },
                 onLoading = {
                     CircularProgressIndicator(
-                        modifier = Modifier.fillParentMaxWidth()
+                        modifier = Modifier
+                            .fillParentMaxWidth()
                             .wrapContentWidth(
                                 align = Alignment.CenterHorizontally
                             )

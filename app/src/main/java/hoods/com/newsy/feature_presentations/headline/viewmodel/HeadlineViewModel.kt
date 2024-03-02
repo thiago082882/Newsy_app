@@ -1,4 +1,4 @@
-package hoods.com.newsy.features_presentations.headline.viewmodel
+package hoods.com.newsy.feature_presentations.headline.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,7 +9,7 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hoods.com.newsy.features_components.core.domain.models.NewsyArticle
 import hoods.com.newsy.features_components.core.domain.use_cases.SettingUseCases
-import hoods.com.newsy.features_components.headline.domain.use_cases.HeadlineUseCases
+import hoods.com.newsy.features_components.headlines.domain.use_cases.HeadlineUseCases
 import hoods.com.newsy.utils.Resource
 import hoods.com.newsy.utils.Utils
 import kotlinx.coroutines.flow.collectLatest

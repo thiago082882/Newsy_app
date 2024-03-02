@@ -1,4 +1,4 @@
-package hoods.com.newsy.features_presentations.detail.components
+package hoods.com.newsy.feature_presentations.detail.components
 
 import android.content.Context
 import android.content.Intent
@@ -37,11 +37,11 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import hoods.com.newsy.R
+import hoods.com.newsy.feature_presentations.core.components.defaultPadding
+import hoods.com.newsy.feature_presentations.core.components.defaultSpacing
+import hoods.com.newsy.feature_presentations.core.components.itemSpacing
 import hoods.com.newsy.features_components.detail.domain.models.ArticleMetaData
 import hoods.com.newsy.features_components.detail.domain.models.DetailArticle
-import hoods.com.newsy.features_presentations.core.components.defaultPadding
-import hoods.com.newsy.features_presentations.core.components.defaultSpacing
-import hoods.com.newsy.features_presentations.core.components.itemSpacing
 import hoods.com.newsy.utils.Utils
 
 @Composable

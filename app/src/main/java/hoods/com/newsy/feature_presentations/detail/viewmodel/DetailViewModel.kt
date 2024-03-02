@@ -1,4 +1,4 @@
-package hoods.com.newsy.features_presentations.detail.viewmodel
+package hoods.com.newsy.feature_presentations.detail.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,8 +7,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hoods.com.newsy.feature_presentations.core.navigation.UiScreen
 import hoods.com.newsy.features_components.detail.domain.use_cases.DetailUseCases
-import hoods.com.newsy.features_presentations.core.navigation.UiScreen
 import hoods.com.newsy.utils.K
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -50,14 +50,14 @@ class DetailViewModel @Inject constructor(
                     )
                 }
 
-                UiScreen.SearchScreen().route -> {
-                    detailState = detailState.copy(
-                        selectedDetailArticle = detailUseCases.getDetailSearchArticleUseCase(
-                            id
-                        ),
-                        error = false
-                    )
-                }
+//                UiScreen.SearchScreen().route -> {
+//                    detailState = detailState.copy(
+//                        selectedDetailArticle = detailUseCases.getDetailSearchArticleUseCase(
+//                            id
+//                        ),
+//                        error = false
+//                    )
+//                }
 
                 unknownRoute -> {
                     detailState = detailState.copy(

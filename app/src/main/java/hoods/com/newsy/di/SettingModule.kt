@@ -11,11 +11,11 @@ import hoods.com.newsy.features_components.core.data.mapper.SettingMapper
 import hoods.com.newsy.features_components.core.data.repository.SettingRepositoryImpl
 import hoods.com.newsy.features_components.core.domain.mapper.Mapper
 import hoods.com.newsy.features_components.core.domain.models.Setting
-import hoods.com.newsy.features_components.core.domain.repository.SettingRepository
 import hoods.com.newsy.features_components.core.domain.use_cases.GetSettingUseCase
 import hoods.com.newsy.features_components.core.domain.use_cases.InsertSettingUseCase
 import hoods.com.newsy.features_components.core.domain.use_cases.SettingUseCases
 import hoods.com.newsy.features_components.core.domain.use_cases.UpdateSettingUseCase
+import hoods.com.newsy.features_components.core.repository.SettingRepository
 import javax.inject.Singleton
 
 @Module
@@ -31,7 +31,7 @@ object SettingModule {
     fun provideRepository(
         settingDao: SettingDao,
         mapper: Mapper<SettingsDto, Setting>,
-    ): SettingRepository =
+    ): hoods.com.newsy.features_components.core.domain.repository.SettingRepository =
         SettingRepositoryImpl(settingDao, mapper)
 
     @Provides
@@ -41,8 +41,8 @@ object SettingModule {
     @Provides
     @Singleton
     fun provideSettingUseCases(
-        repository: SettingRepository,
-    ): SettingUseCases = SettingUseCases(
+        repository: hoods.com.newsy.features_components.core.domain.repository.SettingRepository,
+    ): SettingUseCases= SettingUseCases(
         getSettingUseCase = GetSettingUseCase(repository),
         insertSettingUseCase = InsertSettingUseCase(repository),
         updateSettingUseCase = UpdateSettingUseCase(repository)

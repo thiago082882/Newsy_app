@@ -1,4 +1,4 @@
-package hoods.com.newsy.features_presentations.headline.viewmodel
+package hoods.com.newsy.feature_presentations.headline.viewmodel
 
 import androidx.paging.PagingData
 import hoods.com.newsy.features_components.core.domain.models.NewsyArticle
