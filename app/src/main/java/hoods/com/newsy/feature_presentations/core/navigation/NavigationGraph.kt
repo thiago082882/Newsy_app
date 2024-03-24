@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import hoods.com.newsy.feature_presentations.search.SearchScreen
 import hoods.com.newsy.feature_presentations.detail.DetailScreen
 import hoods.com.newsy.feature_presentations.headline.HeadlineScreen
 import hoods.com.newsy.feature_presentations.home.HomeScreen
@@ -43,6 +44,7 @@ fun NewsyNavigationGraph(
                 openDrawer = openDrawer
             )
         }
+
         composable(route = UiScreen.HeadlineScreen().route) {
             HeadlineScreen(
                 onItemClick = {
@@ -68,6 +70,49 @@ fun NewsyNavigationGraph(
                 navController.navigateUp()
             })
         }
+
+        composable(
+            route = UiScreen.SearchScreen().route
+        ) {
+            SearchScreen(
+                onSearchItemClick = {
+                    navActions.navigateToDetail(
+                        it.id,
+                        UiScreen.SearchScreen().route
+                    )
+                },
+                navigateUp = {
+                    navController.navigateUp()
+                }
+            )
+        }
+
+//        composable(route = UiScreen.FavouriteScreen().route) {
+//            FavouriteScreen(
+//                onItemClick = {
+//                    val screenType = when (it.category) {
+//                        K.HEADLINE_CATEGORY -> {
+//                            UiScreen.HeadlineScreen().route
+//                        }
+//
+//                        K.SEARCH_CATEGORY -> {
+//                            UiScreen.HeadlineScreen().route
+//                        }
+//
+//                        else -> UiScreen.DiscoverScreen().route
+//                    }
+//                    navActions.navigateToDetail(
+//                        it.id,
+//                        screenType
+//                    )
+//                },
+//                onFavouriteChange = {
+//                    // TODO:exercise Implement this
+//                },
+//                openDrawer = openDrawer
+//            )
+//        }
+
         composable(route = UiScreen.SettingsScreen().route) {
             SettingScreen {
                 navController.navigateUp()
@@ -77,4 +122,18 @@ fun NewsyNavigationGraph(
 
     }
 
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

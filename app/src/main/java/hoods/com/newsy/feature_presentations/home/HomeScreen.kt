@@ -78,7 +78,7 @@ fun HomeScreen(
                 onHeadlineItemClick = onHeadlineItemClick,
                 onFavouriteHeadlineChange = {
                     viewModel.onHomeUIEvents(
-                        HomeUiEvents.OnHeadlineFavouriteChange(
+                        HomeUiEvents.OnHeadLineFavouriteChange(
                             article = it
                         )
                     )
@@ -135,8 +135,7 @@ private fun LazyListScope.headlineItems(
             },
             onLoading = {
                 CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                         .wrapContentWidth(align = Alignment.CenterHorizontally)
                 )
             }
@@ -192,8 +191,7 @@ private fun LazyListScope.DiscoverItems(
             },
             onLoading = {
                 CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                         .wrapContentWidth(
                             align = Alignment.CenterHorizontally
                         )
@@ -224,8 +222,7 @@ private fun LazyListScope.DiscoverItems(
             },
             onLoading = {
                 CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                         .wrapContentWidth(
                             align = Alignment.CenterHorizontally
                         )
@@ -235,3 +232,4 @@ private fun LazyListScope.DiscoverItems(
     }
 
 }
+

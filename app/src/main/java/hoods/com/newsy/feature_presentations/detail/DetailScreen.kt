@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import hoods.com.newsy.feature_presentations.detail.components.ArticleContent
+import hoods.com.newsy.feature_presentations.detail.components.TopAppBar
 import hoods.com.newsy.feature_presentations.detail.viewmodel.DetailViewModel
 import hoods.com.newsy.features_components.detail.domain.models.DetailArticle
 import hoods.com.newsy.utils.Resource
@@ -63,11 +64,7 @@ fun DetailScreen(
                 (selectedArticleState as Resource.Error<DetailArticle>).error?.message,
                 Toast.LENGTH_SHORT
             ).show()
-            Log.e(
-                "Detail Screen",
-                "DetailScreen: ",
-                (selectedArticleState as Resource.Error<DetailArticle>).error
-            )
+            Log.e("Detail Screen", "DetailScreen: ", (selectedArticleState as Resource.Error<DetailArticle>).error)
         }
     }
 
@@ -86,7 +83,7 @@ private fun DetailScreen(
 
     Scaffold(
         topBar = {
-            hoods.com.newsy.feature_presentations.detail.components.TopAppBar(
+            TopAppBar(
                 title = article.articleMetaData.source,
                 navigationIconContent = navigationContent,
                 scrollBehavior = scrollBehaviour
@@ -103,7 +100,6 @@ private fun DetailScreen(
     }
 
 }
-
 
 
 

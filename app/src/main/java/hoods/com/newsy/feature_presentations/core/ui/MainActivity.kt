@@ -11,9 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
-import hoods.com.newsy.feature_presentations.NewsyApp
+import hoods.com.newsy.feature_presentations.core.NewsyApp
 import hoods.com.newsy.feature_presentations.core.ui.theme.NewsyTheme
-import hoods.com.newsy.feature_presentations.home.HomeScreen
 
 
 @AndroidEntryPoint

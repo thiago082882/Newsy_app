@@ -8,6 +8,6 @@ sealed class HomeUiEvents{
     data class  ArticleClicked(val url :String):HomeUiEvents()
     data class  CategoryChange(val category: ArticleCategory):HomeUiEvents()
     data class  PreferencePanelToggle(val isOpen : Boolean):HomeUiEvents()
-    data class OnHeadlineFavouriteChange(val article: NewsyArticle):HomeUiEvents()
+    data class OnHeadLineFavouriteChange(val article: NewsyArticle):HomeUiEvents()
     data class OnDiscoverFavouriteChange(val article: NewsyArticle) : HomeUiEvents()
 }

@@ -13,7 +13,7 @@ interface DetailDao {
 
     @Query("SELECT * FROM discovery_article WHERE id=:id")
     suspend fun getDiscoverArticleById(id: Int): DetailDto
-//
-//    @Query("SELECT * FROM search_table WHERE id=:id")
-//    suspend fun getSearchArticleById(id: Int): DetailDto
+
+    @Query("SELECT * FROM search_table WHERE id=:id")
+    suspend fun getSearchArticleById(id: Int): DetailDto
 }

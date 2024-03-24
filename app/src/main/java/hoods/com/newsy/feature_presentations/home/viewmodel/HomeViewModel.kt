@@ -52,7 +52,7 @@ class HomeViewModel @Inject constructor(
                 updateDiscoverArticles()
             }
             is HomeUiEvents.PreferencePanelToggle -> {}
-            is HomeUiEvents.OnHeadlineFavouriteChange -> {
+            is HomeUiEvents.OnHeadLineFavouriteChange -> {
                 viewModelScope.launch {
                     val isFavourite = homeUiEvents.article.favourite
                     val update = homeUiEvents.article.copy(

@@ -13,6 +13,10 @@ import hoods.com.newsy.features_components.headlines.data.local.dao.HeadlineDao
 import hoods.com.newsy.features_components.headlines.data.local.dao.HeadlineRemoteKeyDao
 import hoods.com.newsy.features_components.headlines.data.local.model.HeadlineDto
 import hoods.com.newsy.features_components.headlines.data.local.model.HeadlineRemoteKey
+import hoods.com.newsy.features_components.search.data.local.dao.SearchArticleDao
+import hoods.com.newsy.features_components.search.data.local.dao.SearchRemoteKeyDao
+import hoods.com.newsy.features_components.search.data.local.models.SearchDto
+import hoods.com.newsy.features_components.search.data.local.models.SearchRemoteKey
 
 @Database(
     entities = [
@@ -20,6 +24,8 @@ import hoods.com.newsy.features_components.headlines.data.local.model.HeadlineRe
         HeadlineRemoteKey::class,
         DiscoveryArticleDto::class,
         DiscoverKeys::class,
+        SearchDto::class,
+        SearchRemoteKey::class,
         SettingsDto::class
     ], exportSchema = false, version = 1
 )
@@ -30,7 +36,8 @@ abstract class NewsyArticleDatabase : RoomDatabase() {
     abstract fun discoverRemoteKeyDao(): DiscoverRemoteKeyDao
 
     abstract fun detailDao(): DetailDao
-
+    abstract fun searchArticleDao(): SearchArticleDao
+    abstract fun searchKeyDao(): SearchRemoteKeyDao
     abstract fun settingDao(): SettingDao
 
 

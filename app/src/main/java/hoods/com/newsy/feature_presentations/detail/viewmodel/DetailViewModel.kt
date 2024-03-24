@@ -50,14 +50,14 @@ class DetailViewModel @Inject constructor(
                     )
                 }
 
-//                UiScreen.SearchScreen().route -> {
-//                    detailState = detailState.copy(
-//                        selectedDetailArticle = detailUseCases.getDetailSearchArticleUseCase(
-//                            id
-//                        ),
-//                        error = false
-//                    )
-//                }
+                UiScreen.SearchScreen().route -> {
+                    detailState = detailState.copy(
+                        selectedDetailArticle = detailUseCases.getDetailSearchArticleUseCase(
+                            id
+                        ),
+                        error = false
+                    )
+                }
 
                 unknownRoute -> {
                     detailState = detailState.copy(

@@ -53,4 +53,3 @@ fun NavController.navigateToSingleTop(route: String) {
         restoreState = true
     }
 }
-

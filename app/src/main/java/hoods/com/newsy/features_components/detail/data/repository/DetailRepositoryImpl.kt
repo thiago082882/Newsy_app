@@ -40,19 +40,15 @@ class DetailRepositoryImpl(
     }
 
     override suspend fun getSearchArticleById(id: Int): Flow<Resource<DetailArticle>> {
-        TODO("Not yet implemented")
+        return callbackFlow {
+            try {
+                trySend(Resource.Loading())
+                val discover = detailDao.getSearchArticleById(id).toDetailArticle()
+                trySend(Resource.Success(data = discover))
+            } catch (e: Exception) {
+                trySend(Resource.Error(e))
+            }
+            awaitClose { }
+        }
     }
-
-//    override suspend fun getSearchArticleById(id: Int): Flow<Resource<DetailArticle>> {
-//        return callbackFlow {
-//            try {
-//                trySend(Resource.Loading())
-//                val discover = detailDao.getSearchArticleById(id).toDetailArticle()
-//                trySend(Resource.Success(data = discover))
-//            } catch (e: Exception) {
-//                trySend(Resource.Error(e))
-//            }
-//            awaitClose { }
-//        }
-//    }
 }

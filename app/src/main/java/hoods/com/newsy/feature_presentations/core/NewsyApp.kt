@@ -1,4 +1,4 @@
-package hoods.com.newsy.feature_presentations
+package hoods.com.newsy.feature_presentations.core
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -18,5 +18,5 @@ fun NewsyApp() {
         navActions =navActions,
         openDrawer = {}
     )
-    
+
 }

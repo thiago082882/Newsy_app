@@ -11,6 +11,7 @@ import hoods.com.newsy.features_components.detail.domain.repository.DetailReposi
 import hoods.com.newsy.features_components.detail.domain.use_cases.DetailUseCases
 import hoods.com.newsy.features_components.detail.domain.use_cases.GetDetailDiscoverArticleUseCase
 import hoods.com.newsy.features_components.detail.domain.use_cases.GetDetailHeadlineArticleUseCase
+import hoods.com.newsy.features_components.detail.domain.use_cases.GetDetailSearchArticleUseCase
 import javax.inject.Singleton
 
 @Module
@@ -38,9 +39,9 @@ object DetailModule {
         getDetailHeadlineArticleUseCase = GetDetailHeadlineArticleUseCase(
             repo
         ),
-//        getDetailSearchArticleUseCase = GetDetailSearchArticleUseCase(
-//            repo
-//        )
+        getDetailSearchArticleUseCase = GetDetailSearchArticleUseCase(
+            repo
+        )
 
     )
 
